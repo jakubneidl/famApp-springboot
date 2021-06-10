@@ -1,10 +1,12 @@
 package cz.neidl.farmapp.model;
 
-import cz.neidl.farmapp.domain.Sensor;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class SensorReadingResponseDto {
     private String reading;
-    private Sensor sensor;
+    private String value;
+    private LocalDateTime createdAt;
 }

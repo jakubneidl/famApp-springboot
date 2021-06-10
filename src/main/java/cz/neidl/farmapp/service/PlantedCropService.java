@@ -1,22 +1,17 @@
 package cz.neidl.farmapp.service;
 
-import cz.neidl.farmapp.model.PlantedCropPositionRequestDto;
+import cz.neidl.farmapp.domain.PlantedCrop;
 import cz.neidl.farmapp.model.PlantedCropRequestDto;
 import cz.neidl.farmapp.model.PlantedCropResponseDto;
+import cz.neidl.farmapp.model.SensorReadingResponseDto;
 
 import java.util.List;
 
 public interface PlantedCropService {
+    List<PlantedCropResponseDto> getAllCropsInHarvest(Long id);
     List<PlantedCropResponseDto> getAllPlantedCrops();
-
     PlantedCropResponseDto createPlantCrop(PlantedCropRequestDto cropToPlant);
     PlantedCropResponseDto plantCrop(PlantedCropRequestDto cropToPlant);
-
-    void plantCropVaaddin(String value, String x, String y, String z);
-
-    void plantCropFromVaaddin(String cropName, String positionX, String positionY, String positionZ);
-
-    void deleteFromVaadin(PlantedCropPositionRequestDto plantedCropPositionRequestDto);
-
-//    PlantedCropResponseDto plantCrop(CropRequestDto cropToPlant);
+    List<SensorReadingResponseDto> getPlantedCropHumidity(Long id);
+    void deletePlantedCrop(Long cropId);
 }

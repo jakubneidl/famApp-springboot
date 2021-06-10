@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class SeederController {
-
     private final SeederService seederService;
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping(path = "/seeders")

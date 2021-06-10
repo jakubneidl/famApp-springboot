@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,19 +36,6 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public List<SensorResponseDto> findAllSensors(String filterText) {
-        if(filterText == null  || filterText.isEmpty()) {
-            return sensorRepository.findAll().stream()
-                    .map(sensorMapper::mapToDto)
-                    .collect(Collectors.toList());
-        }else {
-            return sensorRepository.findBySensorName(filterText).stream()
-                    .map(sensorMapper::mapToDto)
-                    .collect(Collectors.toList());
-        }
-    }
-
-    @Override
     @Transactional
     public SensorResponseDto saveSensor(SensorRequestDto sensorRequestDto) {
         if(sensorRepository.findBySensorName(sensorRequestDto.getSensorName()).isEmpty()) {
@@ -65,10 +51,10 @@ public class SensorServiceImpl implements SensorService {
         Sensor sensorToUpdate = sensorRepository.findBySensorName(sensorRequestDto.getSensorName())
                 .orElseThrow(() -> new SensorNotFoundException("Sensor with this name couldn't be found, can't update data"));
 
-        Set<SensorReading> sensorReadingSetToUpdate = sensorToUpdate.getSensorReadingSet();
+        List<SensorReading> sensorReadingSetToUpdate = sensorToUpdate.getSensorReadings();
 
         Sensor sensorDomain = sensorMapper.mapToDomain(sensorRequestDto);
-        sensorReadingSetToUpdate.add(sensorDomain.getSensorReadingSet().stream().iterator().next());
+        sensorReadingSetToUpdate.add(sensorDomain.getSensorReadings().stream().iterator().next());
 
         return sensorMapper.mapToDto(sensorToUpdate);
     }

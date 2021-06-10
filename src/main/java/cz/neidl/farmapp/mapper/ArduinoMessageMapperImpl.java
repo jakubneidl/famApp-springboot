@@ -1,8 +1,8 @@
 package cz.neidl.farmapp.mapper;
 
-import cz.neidl.farmapp.arduino.ArduinoMessage;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.neidl.farmapp.arduino.ArduinoMessage;
 
 import java.io.IOException;
 

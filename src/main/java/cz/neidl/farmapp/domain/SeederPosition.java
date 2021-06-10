@@ -10,6 +10,4 @@ public class SeederPosition extends AbstractEntity{
     private String positionX;
     private String positionY;
     private String positionZ;
-//    @OneToOne
-//    private Seeder seeder;
 }

@@ -22,7 +22,6 @@ public class Crop extends AbstractEntity {
     private String spacing;
     @NotNull
     private String idealSoilHumidity;
-
     @ManyToOne
     @JoinColumn(name = "seeder_id")
     private Seeder seeder;

@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class SensorController {
-
     private final SensorService sensorService;
     private final SensorReadingService sensorReadingService;
 
@@ -24,8 +23,8 @@ public class SensorController {
         return sensorService.findAllDomainSensors();
     }
 
-
-    @GetMapping(path = "/all")
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping(path = "/allSensors")
     public List<SensorResponseDto> findAllSensors() {
         return sensorService.findAllSensors();
     }
@@ -34,12 +33,6 @@ public class SensorController {
     public SensorResponseDto findSensorInfo(@PathVariable("sensorName") String sensorName) {
         return sensorService.findByName(sensorName);
     }
-
-    @GetMapping(path = "/test")
-    public String test() {
-        return "test";
-    }
-
     @PostMapping(path = "/newSensor")
     public SensorResponseDto saveSensor(@RequestBody SensorRequestDto sensor) {
         return sensorService.saveSensor(sensor);
@@ -48,6 +41,4 @@ public class SensorController {
     public SensorResponseDto saveSensorData(@RequestBody SensorRequestDto sensorReading){
         return sensorService.updateData(sensorReading);
     }
-
-
 }

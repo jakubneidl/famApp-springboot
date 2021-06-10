@@ -24,10 +24,20 @@ public class CropController {
     public CropResponseDto saveCrop(@Valid @RequestBody CropRequestDto cropRequestDto){
         return cropService.saveCrop(cropRequestDto);
     }
+    @CrossOrigin(origins = "http://localhost:8080")
+    @DeleteMapping(path = "crops/{cropName}")
+    public void deleteCrop(@PathVariable String cropName){
+        cropService.deleteCropByName(cropName);
+    }
 
     @GetMapping(path = "/crops/{cropName}")
     public CropResponseDto getCropByName(@PathVariable String cropName){
         return cropService.getCropByName(cropName);
     }
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PutMapping(path ="/crops")
+    public List<CropResponseDto> updateCrop(@RequestBody CropRequestDto cropRequestDto){
+        return cropService.updateCrop(cropRequestDto);
 
+    }
 }

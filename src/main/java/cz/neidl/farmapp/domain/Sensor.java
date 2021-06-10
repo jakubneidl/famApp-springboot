@@ -2,17 +2,14 @@ package cz.neidl.farmapp.domain;
 
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 public class Sensor extends AbstractEntity{
     private String sensorName;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "sensor_id")
-    private Set<SensorReading> sensorReadingSet;
+    private List<SensorReading> sensorReadings;
 }

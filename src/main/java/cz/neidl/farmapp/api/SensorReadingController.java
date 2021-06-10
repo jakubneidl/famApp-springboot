@@ -15,7 +15,6 @@ import java.util.List;
 public class SensorReadingController {
     private final SensorReadingService sensorReadingService;
 
-
     @GetMapping(path = "/sensorReadings")
     public List<SensorReadingResponseDto> sensorReadings(){
         return sensorReadingService.findAllReadings();

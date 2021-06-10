@@ -53,7 +53,7 @@ public class CropServiceImpl implements CropService {
     public CropResponseDto saveCrop(CropRequestDto cropRequestDto) {
         if (cropRepository.findByName(cropRequestDto.getName()).isEmpty()) {
             Seeder seeder = seederRepository.findByName(cropRequestDto.getSeeder().getName())
-                    .orElseThrow(()-> new SeederNotFoundException("Cannot save crop without existing seeder"));
+                    .orElseThrow(() -> new SeederNotFoundException("Cannot save crop without existing seeder"));
 
             Crop crop = cropMapper.mapToDomain(cropRequestDto);
             crop.setSeeder(seeder);
@@ -78,31 +78,28 @@ public class CropServiceImpl implements CropService {
                 .collect(Collectors.toList());
     }
 
+
+
+    @Override
+    @Transactional
+    public List<CropResponseDto> updateCrop(CropRequestDto cropRequestDto) {
+        Crop cropToUpdate = cropRepository.findByName(cropRequestDto.getName())
+                .orElseThrow(() -> new CropNotFoundException("Cannot find crop"));
+        cropToUpdate.setInfo(cropRequestDto.getInfo());
+        cropToUpdate.setSpacing(cropRequestDto.getSpacing());
+        cropToUpdate.setIdealSoilHumidity(cropRequestDto.getIdealSoilHumidity());
+
+        cropToUpdate.setSeeder(seederRepository.findByName(cropRequestDto.getSeeder().getName())
+                .orElseThrow(()-> new SeederNotFoundException("Seeder not found")));
+        cropRepository.save(cropToUpdate);
+        return cropRepository.findAll().stream().map(cropMapper::mapToDto).collect(Collectors.toList());
+    }
+
     @Transactional
     @Override
     public void deleteCropByName(String cropName) {
         Crop crop = cropRepository.findByName(cropName)
                 .orElseThrow(() -> new CropNotFoundException("Cannot delete crop that doesn't exist"));
         cropRepository.delete(crop);
-    }
-
-    @Transactional
-    @Override
-    public void saveCropFromVaadin(String cropName, String info, String spacing, String seederName) {
-
-        if (cropRepository.findByName(cropName).isEmpty()) {
-            Seeder seeder = seederRepository.findByName(seederName)
-                    .orElseThrow(() -> new SeederNotFoundException(seederName + " Seeder with this name doesn't exist"));
-
-            Crop cropToSave = new Crop()
-                    .setName(cropName)
-                    .setInfo(info)
-                    .setSpacing(spacing)
-                    .setSeeder(seeder);
-            cropRepository.save(cropToSave);
-        }else {
-            throw  new CropAlreadyExistsException("Cannot save crop that already exists");
-        }
-
     }
 }

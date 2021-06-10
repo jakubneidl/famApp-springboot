@@ -11,8 +11,6 @@ public interface CropService {
     List<CropResponseDto> getAllCrops();
     CropResponseDto getCropByName(String cropName);
     List<CropResponseDto> getAllCrops(String cropName);
-
     void deleteCropByName(String cropName);
-
-    void saveCropFromVaadin(String name, String info, String spacing, String seederName);
+    List<CropResponseDto> updateCrop(CropRequestDto cropRequestDto);
 }

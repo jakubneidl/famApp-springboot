@@ -35,22 +35,5 @@ public class SeederServiceImpl implements SeederService {
         return seederMapper.mapToDto(seederRepository.save(seederMapper.mapToDomain(seederRequestDto)));
     }
 
-    @Override
-    public SeederRequestDto findSeederByName(String seederName) {
-        Seeder seeder = seederRepository.findByName(seederName).get();
-        SeederRequestDto seederRequestDto = new SeederRequestDto();
-        seederRequestDto.setName(seeder.getName());
-        return seederRequestDto;
-    }
-
-//    @Transactional
-//    @Override
-//    public SeederResponseDto saveSeeder(String name, String x, String y, String z){
-//
-//        if(seederRepository.findByName(name).isEmpty()){
-//            return  seederMapper.mapToDto(seederRepository.save(new Seeder(name, x, y, z,)));
-//        }
-//        return null;
-//    }
 
 }
